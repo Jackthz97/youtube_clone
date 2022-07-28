@@ -1,10 +1,25 @@
-import React from 'react';
-import './App.css';
-//https://youtube.googleapis.com/youtube/v3/search?part=snippet&order=relevance&q=batman&key=AIzaSyA2FjKL5XNYP8JtFhBc_au5dHbMMhuF4hQ
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import HomePage from "./Components/Home/HomePage";
+import "./App.css";
+
 function App() {
+  const [mode, setMode] = useState("dark");
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: mode,
+    },
+  });
   return (
-    <div className="App">
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <Routes>
+      <Route path="/" element={<HomePage />} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 
