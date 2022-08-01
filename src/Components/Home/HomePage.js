@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { Grid, Box } from "@mui/material";
-import VideoList from "./VideoList";
+import VideoList from "../Video/VideoList";
 import TimeAgo from "javascript-time-ago";
 import SearchBar from "./SearchBar";
+import Navbar from "../Navbar/Navbar";
+import "./HomePage.scss"
 
 import en from "javascript-time-ago/locale/en.json";
 import ru from "javascript-time-ago/locale/ru.json";
@@ -14,7 +16,7 @@ TimeAgo.addLocale(ru);
 export default function HomePage() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("trending");
-  const key = "AIzaSyATJY6f0Ic4UpT_fPNyeOIpFgYOodgC0wk";
+  const key = "AIzaSyD83r2NzKFYX6ZrD229bH1bjCPiPBWlgds";
   const maxResults = 20;
 
   useMemo(() => {
@@ -26,8 +28,8 @@ export default function HomePage() {
         setData(res.data.items);
       })
       .catch((err) => console.log("Error: ", err));
-    }, [search]);
-    console.log("Youtube API Data: ", data);
+  }, [search]);
+  console.log("Youtube API Data: ", data);
 
   const videos = data.map((e) => {
     return (
@@ -46,24 +48,27 @@ export default function HomePage() {
     );
   });
   return (
-    <Grid container direction={"row"} justifyContent={"center"}>
-      <Grid container direction={"row"} justifyContent={"center"}>
+    <Grid>
+      <div className="top-nav"></div>
+      <Navbar setSearch={setSearch}/>
+      <Grid container direction={"row"} justifyContent={"center"} mt={3}>
+        {/* <Grid container direction={"row"} justifyContent={"center"}>
+          <SearchBar search={search} setSearch={setSearch} />
+        </Grid> */}
 
-      <SearchBar search={search} setSearch={setSearch} />
-      </Grid>
-      
-      <Box gridColumn="span 10">
-        <Box
-          sx={{
-            display: "grid",
-            alignContent: 'space',
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gridAutoRows: "1fr",
-          }}
-        >
-          {videos}
+        <Box gridColumn="span 10">
+          <Box
+            sx={{
+              display: "grid",
+              alignContent: "space",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              gridAutoRows: "1fr",
+            }}
+          >
+            {videos}
+          </Box>
         </Box>
-      </Box>
+      </Grid>
     </Grid>
   );
 }

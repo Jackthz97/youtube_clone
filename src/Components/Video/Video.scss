@@ -1,0 +1,33 @@
+.box {
+  width: 270px;
+  overflow-wrap: break-word;
+}
+
+.channel-img {
+  border-radius: 50%;
+  width: 40px;
+}
+
+.channel-title {
+  font-size: 14px;
+  color: rgb(166, 166, 166);
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.channel-time {
+  font-size: 14px;
+  color: rgb(166, 166, 166);
+  margin-top: -15px;
+  font-weight: bold;
+}
+
+.pt {
+  position: relative;
+  background-color: black;
+  top: -44px;
+  right: 6px;
+  font-size: 13px;
+  font-weight: bolder;
+  
+}
