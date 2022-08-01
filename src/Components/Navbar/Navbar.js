@@ -19,8 +19,11 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Grid } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import "./Navbar.scss";
+import VideoList from "../Video/VideoList";
+import { Link } from "react-router-dom";
+import youtubeLogo from './youtube-logo.png';
 
 const drawerWidth = 240;
 
@@ -89,9 +92,9 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer({ setSearch }) {
+export default function MiniDrawer({ setSearch, open, setOpen }) {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(true);
   const [focused, setFocused] = useState(false);
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
@@ -121,10 +124,22 @@ export default function MiniDrawer({ setSearch }) {
           >
             <MenuIcon />
           </IconButton>
-            <img className="youtube-logo" src="youtube-logo.png" alt="youtube-logo.png"/>
+          <Link
+            to="/"
+            style={{
+              textDecoration: "none",
+              // color: nav === "navbar-home" ? "white" : "black",
+            }}
+          >
+            <img
+              className="youtube-logo"
+              src={youtubeLogo}
+              alt="youtube-logo.png"
+            />
+          </Link>
           <Grid container direction="row" justifyContent={"center"}>
             <input
-              className="input-bar"
+              className={open ? "input-bar-open" : "input-bar"}
               type="text"
               placeholder={"Search"}
               onFocus={onFocus}
@@ -134,7 +149,9 @@ export default function MiniDrawer({ setSearch }) {
                 (e.preventDefault(), setSearch(e.target.value))
               }
             />
-            <button className="search-button"><SearchIcon/></button>
+            <button className={open ? "search-button-open" : "search-button"}>
+              <SearchIcon />
+            </button>
           </Grid>
         </Toolbar>
       </AppBar>
@@ -199,6 +216,7 @@ export default function MiniDrawer({ setSearch }) {
           ))}
         </List>
       </Drawer>
+      {/* <VideoList/> */}
       {/* <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
         <Typography paragraph>

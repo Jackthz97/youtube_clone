@@ -4,6 +4,7 @@ import axios from "axios";
 import ReactTimeAgo from "react-time-ago";
 import Num2Views from "../../Hooks/Num2Views";
 import DurationConvert from "../../Hooks/DurationConvert";
+import { Link } from "react-router-dom";
 import "./Video.scss";
 
 export default function VideoList({
@@ -15,6 +16,10 @@ export default function VideoList({
   thumbnail,
   channelTitle,
   search,
+  setVideoLink,
+  videoLink,
+  setVideoTitle,
+  videoTitle
 }) {
   const [channel, setChannel] = useState([]);
   const [views, setViews] = useState([]);
@@ -33,7 +38,11 @@ export default function VideoList({
       .then((res) => setViews(res.data.items))
       .catch((err) => console.log("Error: ", err));
   }, [channelId, videoId]);
-
+  const handleClick = () => {
+    setVideoLink(videoId);
+    setVideoTitle(title);
+    console.log(`videoId: ${videoId}, VideoLink: ${videoLink} `)
+  };
   const channleImg = channel.map((e) => {
     return (
       <React.Fragment key={videoId}>
@@ -58,7 +67,15 @@ export default function VideoList({
   title = title.replace("&#39;", "'");
   return (
     <Grid mr={2}>
-      <img src={thumbnail} alt={title} />
+      <Link
+        to={`/watch/${videoId}`}
+        style={{
+          textDecoration: "none",
+        }}
+        onClick={handleClick}
+      >
+        <img src={thumbnail} alt={title} width={"100%"} />
+      </Link>
       <Grid container direction={"row"} justifyContent={"end"} mb={-4.5}>
         <p className="pt">{DurationConvert(duration)}</p>
       </Grid>
@@ -68,7 +85,9 @@ export default function VideoList({
         </Grid>
         <Grid item xs={10}>
           <Grid className="box">
-            <Typography fontWeight={"bold"}>{title.toString()}</Typography>
+            <Typography fontSize={13} fontWeight={"bold"}>
+              {title.toString()}
+            </Typography>
             <p className="channel-title">{channelTitle}</p>
             <p className="channel-time">
               {`${Num2Views(view)} views`}{" "}
@@ -80,85 +99,3 @@ export default function VideoList({
     </Grid>
   );
 }
-// {
-//   "kind": "youtube#videoListResponse",
-//   "etag": "BpRwz9C1JR_SKhQvNGP-XeXLNiY",
-//   "items": [
-//     {
-//       "kind": "youtube#video",
-//       "etag": "N8StRtbiiq_8-QvbXKGpWBr51j4",
-//       "id": "XjNmH7FCaIo",
-//       "snippet": {
-//         "publishedAt": "2022-07-31T15:58:24Z",
-//         "channelId": "UC5eDiyFKURwCFAhOrA4wq-A",
-//         "title": "Ovo Su Najbogatije Devojčice Na Svetu",
-//         "description": "Ne zaboravite da se subskrabujete na Trending I da lajkujete ovaj video :)\n\nSubskrajbujte se na naš drugi kanał Trending News ovde: https://www.youtube.com/channel/UCrVcWIpO7vXzzr8f28dZJ_Q\n\nEmail (business inquiries only): trendingnjuz@gmail.com\n\nPratite nas na Instagramu: https://www.instagram.com/trending.rs/",
-//         "thumbnails": {
-//           "default": {
-//             "url": "https://i.ytimg.com/vi/XjNmH7FCaIo/default.jpg",
-//             "width": 120,
-//             "height": 90
-//           },
-//           "medium": {
-//             "url": "https://i.ytimg.com/vi/XjNmH7FCaIo/mqdefault.jpg",
-//             "width": 320,
-//             "height": 180
-//           },
-//           "high": {
-//             "url": "https://i.ytimg.com/vi/XjNmH7FCaIo/hqdefault.jpg",
-//             "width": 480,
-//             "height": 360
-//           },
-//           "standard": {
-//             "url": "https://i.ytimg.com/vi/XjNmH7FCaIo/sddefault.jpg",
-//             "width": 640,
-//             "height": 480
-//           },
-//           "maxres": {
-//             "url": "https://i.ytimg.com/vi/XjNmH7FCaIo/maxresdefault.jpg",
-//             "width": 1280,
-//             "height": 720
-//           }
-//         },
-//         "channelTitle": "TRENDING",
-//         "tags": [
-//           "trending",
-//           "idjtv",
-//           "blic poligraf",
-//           "k1 televizija",
-//           "grand show",
-//           "Prva rs",
-//           "paparazzo lov",
-//           "mondo rs",
-//           "Zvezde granda"
-//         ],
-//         "categoryId": "24",
-//         "liveBroadcastContent": "none",
-//         "localized": {
-//           "title": "Ovo Su Najbogatije Devojčice Na Svetu",
-//           "description": "Ne zaboravite da se subskrabujete na Trending I da lajkujete ovaj video :)\n\nSubskrajbujte se na naš drugi kanał Trending News ovde: https://www.youtube.com/channel/UCrVcWIpO7vXzzr8f28dZJ_Q\n\nEmail (business inquiries only): trendingnjuz@gmail.com\n\nPratite nas na Instagramu: https://www.instagram.com/trending.rs/"
-//         },
-//         "defaultAudioLanguage": "sr-Latn"
-//       },
-//       "contentDetails": {
-//         "duration": "PT4M8S",
-//         "dimension": "2d",
-//         "definition": "hd",
-//         "caption": "false",
-//         "licensedContent": true,
-//         "contentRating": {},
-//         "projection": "rectangular"
-//       },
-//       "statistics": {
-//         "viewCount": "9141",
-//         "likeCount": "443",
-//         "favoriteCount": "0",
-//         "commentCount": "24"
-//       }
-//     }
-//   ],
-//   "pageInfo": {
-//     "totalResults": 1,
-//     "resultsPerPage": 1
-//   }
-// }

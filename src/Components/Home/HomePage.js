@@ -5,7 +5,7 @@ import VideoList from "../Video/VideoList";
 import TimeAgo from "javascript-time-ago";
 import SearchBar from "./SearchBar";
 import Navbar from "../Navbar/Navbar";
-import "./HomePage.scss"
+import "./HomePage.scss";
 
 import en from "javascript-time-ago/locale/en.json";
 import ru from "javascript-time-ago/locale/ru.json";
@@ -13,12 +13,34 @@ import ru from "javascript-time-ago/locale/ru.json";
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
 
-export default function HomePage() {
+export default function HomePage({
+  width,
+  setWidth,
+  ulrtaWide,
+  moniterBreakpoint,
+  mobileBreakpoint,
+  open,
+  setOpen,
+  search,
+  setSearch,
+  setVideoLink,
+  videoLink,
+  setVideoTitle,
+  videoTitle
+}) {
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState("trending");
-  const key = "AIzaSyD83r2NzKFYX6ZrD229bH1bjCPiPBWlgds";
+  const key = "AIzaSyBmDrlGH8N20YohZjRsgKfBvChCn9OLIzo";
   const maxResults = 20;
+  console.log("OPENNNNNNN: ", open);
+  useEffect(() => {
+    /* Inside of a "useEffect" hook add an event listener that updates
+       the "width" state variable when the window size changes */
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
 
+    /* passing an empty array as the dependencies of the effect will cause this
+       effect to only run when the component mounts, and not each time it updates.
+       We only want the listener to be added once */
+  }, []);
   useMemo(() => {
     axios
       .get(
@@ -43,6 +65,10 @@ export default function HomePage() {
           thumbnail={e.snippet.thumbnails.medium.url}
           channelTitle={e.snippet.channelTitle}
           search={search}
+          setVideoLink={setVideoLink}
+          videoLink={videoLink}
+          videoTitle={videoTitle}
+          setVideoTitle={setVideoTitle}
         />
       </React.Fragment>
     );
@@ -50,24 +76,49 @@ export default function HomePage() {
   return (
     <Grid>
       <div className="top-nav"></div>
-      <Navbar setSearch={setSearch}/>
+      <Navbar setSearch={setSearch} open={open} setOpen={setOpen} />
       <Grid container direction={"row"} justifyContent={"center"} mt={3}>
         {/* <Grid container direction={"row"} justifyContent={"center"}>
           <SearchBar search={search} setSearch={setSearch} />
         </Grid> */}
-
-        <Box gridColumn="span 10">
-          <Box
-            sx={{
-              display: "grid",
-              alignContent: "space",
-              gridTemplateColumns: "repeat(4, 1fr)",
-              gridAutoRows: "1fr",
-            }}
-          >
-            {videos}
+        <Grid
+          className={open ? "video-box-open" : "video-box"}
+          container
+          display={"flex"}
+          direction={"row"}
+          justifyContent={open ? "center" : "start"}
+        >
+          {/* {width >= 1790 && width < ulrtaWide && ( */}
+          <Box gridColumn="span 10">
+            <Box
+              sx={{
+                display: "grid",
+                alignContent: "space",
+                gridTemplateColumns: open ? "repeat(4, 1fr)" : "repeat(5, 1fr)",
+                gridAutoRows: "1fr",
+              }}
+            >
+              {videos}
+            </Box>
           </Box>
-        </Box>
+          {/* )} */}
+          {/* {width < 1790 &&   (
+            <Box gridColumn="span 10">
+              <Box
+                sx={{
+                  display: "grid",
+                  alignContent: "space",
+                  gridTemplateColumns: open
+                    ? "repeat(3, 1fr)"
+                    : "repeat(4, 1fr)",
+                  gridAutoRows: "1fr",
+                }}
+              >
+                {videos}
+              </Box>
+            </Box>
+          )} */}
+        </Grid>
       </Grid>
     </Grid>
   );

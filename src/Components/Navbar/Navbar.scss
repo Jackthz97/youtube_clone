@@ -6,8 +6,26 @@
   font-size: large;
   border: none;
 }
+.input-bar-open {
+  position: relative;
+  left: -50px;
+  background-color: black;
+  height: 40px;
+  width: 500px;
+  color: white;
+  font-size: large;
+  border: none;
+}
 
 .search-button {
+  background-color: rgb(85, 85, 85);
+  color: white;
+  border: none;
+  width: 60px;
+}
+.search-button-open {
+  position: relative;
+  left: -50px;
   background-color: rgb(85, 85, 85);
   color: white;
   border: none;
