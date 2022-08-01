@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import { Grid, Box } from "@mui/material";
 import VideoList from "./VideoList";
@@ -15,22 +15,24 @@ export default function HomePage() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("trending");
   const key = "AIzaSyATJY6f0Ic4UpT_fPNyeOIpFgYOodgC0wk";
-  const maxResults = 100;
+  const maxResults = 20;
 
-  useEffect(() => {
+  useMemo(() => {
     axios
       .get(
-        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=${maxResults}&order=relevance&q=${search}&key=${key}`
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=${maxResults}&order=relevance&q=${search}&type=video&videoType=any&key=${key}`
       )
-      .then((res) => setData(res.data.items))
+      .then((res) => {
+        setData(res.data.items);
+      })
       .catch((err) => console.log("Error: ", err));
-  }, [search]);
-  // console.log("Youtube API Data: ", data);
+    }, [search]);
+    console.log("Youtube API Data: ", data);
+
   const videos = data.map((e) => {
     return (
       <React.Fragment key={e.id.videoId}>
         <VideoList
-          APIkey={key}
           videoId={e.id.videoId}
           uploadTime={e.snippet.publishedAt}
           channelId={e.snippet.channelId}
@@ -38,20 +40,24 @@ export default function HomePage() {
           description={e.snippet.description}
           thumbnail={e.snippet.thumbnails.medium.url}
           channelTitle={e.snippet.channelTitle}
+          search={search}
         />
       </React.Fragment>
     );
   });
   return (
-    <Grid container direction={"column"} alignContent={"center"}>
+    <Grid container direction={"row"} justifyContent={"center"}>
       <Grid container direction={"row"} justifyContent={"center"}>
-        <SearchBar search={search} setSearch={setSearch} />
+
+      <SearchBar search={search} setSearch={setSearch} />
       </Grid>
+      
       <Box gridColumn="span 10">
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
+            alignContent: 'space',
+            gridTemplateColumns: "repeat(4, 1fr)",
             gridAutoRows: "1fr",
           }}
         >
