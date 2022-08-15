@@ -28,10 +28,14 @@ export default function HomePage({
   setVideoTitle,
   videoTitle,
   data,
-  setData
+  setData,
+  setChannel,
+  setViews,
+  channel,
+  views,
 }) {
   // const [data, setData] = useState([]);
-  const key = "AIzaSyATJY6f0Ic4UpT_fPNyeOIpFgYOodgC0wk";
+  const key = "AIzaSyD83r2NzKFYX6ZrD229bH1bjCPiPBWlgds";
   const maxResults = 20;
   console.log("OPENNNNNNN: ", open);
   useEffect(() => {
@@ -71,6 +75,10 @@ export default function HomePage({
           videoLink={videoLink}
           videoTitle={videoTitle}
           setVideoTitle={setVideoTitle}
+          setChannel={setChannel}
+          setViews={setViews}
+          channel={channel}
+          views={views}
         />
       </React.Fragment>
     );

@@ -19,10 +19,14 @@ export default function VideoList({
   setVideoLink,
   videoLink,
   setVideoTitle,
-  videoTitle
+  videoTitle,
+  // setChannel,
+  // channel,
+  setViews,
+  views,
 }) {
   const [channel, setChannel] = useState([]);
-  const [views, setViews] = useState([]);
+  // const [views, setViews] = useState([]);
   const APIkey = "AIzaSyA2FjKL5XNYP8JtFhBc_au5dHbMMhuF4hQ";
   useMemo(() => {
     axios

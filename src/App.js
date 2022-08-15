@@ -11,13 +11,15 @@ function App() {
   const [videoLink, setVideoLink] = useState("");
   const [videoTitle, setVideoTitle] = useState("");
   const [data, setData] = useState([]);
+  // const [channel, setChannel] = useState([]);
+  const [views, setViews] = useState([]);
   const darkTheme = createTheme({
     palette: {
       mode: mode,
     },
   });
   const [width, setWidth] = useState(window.innerWidth);
-  const [search, setSearch] = useState("trending");
+  const [search, setSearch] = useState("Andrew tate");
   const [open, setOpen] = useState(true);
   console.log("WIDTH: ", width);
   const ulrtaWide = 3440;
@@ -56,6 +58,10 @@ function App() {
               setVideoTitle={setVideoTitle}
               data={data}
               setData={setData}
+              // setChannel={setChannel}
+              // channel={channel}
+              setViews={setViews}
+              views={views}
             />
           }
         />
@@ -73,6 +79,8 @@ function App() {
               setVideoTitle={setVideoTitle}
               data={data}
               moniterBreakpoint={moniterBreakpoint}
+              setViews={setViews}
+              views={views}
             />
           }
         />
