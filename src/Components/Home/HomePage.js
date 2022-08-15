@@ -3,6 +3,7 @@ import axios from "axios";
 import { Grid, Box } from "@mui/material";
 import VideoList from "../Video/VideoList";
 import TimeAgo from "javascript-time-ago";
+
 import Navbar from "../Navbar/Navbar";
 import "./HomePage.scss";
 
@@ -25,9 +26,11 @@ export default function HomePage({
   setVideoLink,
   videoLink,
   setVideoTitle,
-  videoTitle
+  videoTitle,
+  data,
+  setData
 }) {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const key = "AIzaSyATJY6f0Ic4UpT_fPNyeOIpFgYOodgC0wk";
   const maxResults = 20;
   console.log("OPENNNNNNN: ", open);

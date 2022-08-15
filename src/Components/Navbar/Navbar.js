@@ -23,7 +23,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import "./Navbar.scss";
 import VideoList from "../Video/VideoList";
 import { Link } from "react-router-dom";
-import youtubeLogo from './youtube-logo.png';
+import youtubeLogo from "./youtube-logo.png";
 
 const drawerWidth = 240;
 
@@ -135,6 +135,7 @@ export default function MiniDrawer({ setSearch, open, setOpen }) {
               className="youtube-logo"
               src={youtubeLogo}
               alt="youtube-logo.png"
+              onClick={setSearch("Trending")}
             />
           </Link>
           <Grid container direction="row" justifyContent={"center"}>
@@ -146,6 +147,7 @@ export default function MiniDrawer({ setSearch, open, setOpen }) {
               onBlur={onBlur}
               onKeyPress={(e) =>
                 e.key === "Enter" &&
+                (e.target.value !== "") &&
                 (e.preventDefault(), setSearch(e.target.value))
               }
             />

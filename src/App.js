@@ -10,6 +10,7 @@ function App() {
   const [mode, setMode] = useState("dark");
   const [videoLink, setVideoLink] = useState("");
   const [videoTitle, setVideoTitle] = useState("");
+  const [data, setData] = useState([]);
   const darkTheme = createTheme({
     palette: {
       mode: mode,
@@ -53,6 +54,8 @@ function App() {
               videoLink={videoLink}
               videoTitle={videoTitle}
               setVideoTitle={setVideoTitle}
+              data={data}
+              setData={setData}
             />
           }
         />
@@ -68,6 +71,8 @@ function App() {
               videoLink={videoLink}
               videoTitle={videoTitle}
               setVideoTitle={setVideoTitle}
+              data={data}
+              moniterBreakpoint={moniterBreakpoint}
             />
           }
         />
