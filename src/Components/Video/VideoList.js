@@ -27,7 +27,7 @@ export default function VideoList({
 }) {
   const [channel, setChannel] = useState([]);
   // const [views, setViews] = useState([]);
-  const APIkey = "AIzaSyA2FjKL5XNYP8JtFhBc_au5dHbMMhuF4hQ";
+  const APIkey = "AIzaSyAfr7q4wiIO2VeC-KG7MseQ9D-DZwtSz3U";
   useMemo(() => {
     axios
       .get(

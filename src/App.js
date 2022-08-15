@@ -19,7 +19,7 @@ function App() {
     },
   });
   const [width, setWidth] = useState(window.innerWidth);
-  const [search, setSearch] = useState("Andrew tate");
+  const [search, setSearch] = useState("trending");
   const [open, setOpen] = useState(true);
   console.log("WIDTH: ", width);
   const ulrtaWide = 3440;

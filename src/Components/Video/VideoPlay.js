@@ -4,6 +4,8 @@ import { Grid } from "@mui/material";
 import { Typography } from "@mui/material";
 import VideoPlayList from "./VideoPlayList";
 import { Button } from "@mui/material";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 
 export default function VideoPlay({
   open,
@@ -24,12 +26,26 @@ export default function VideoPlay({
     width: 1200,
     height: 600,
     xs1: 8,
-    xs2: 4
+    xs2: 4,
   });
   const handleClick = () => {
     state.direction === "row"
-      ? setState({ direction: "column", alignContent: "end", width: 1600, height: 800, xs1: 6, xs2: 6 })
-      : setState({ direction: "row", alignContent: "start", width: 1200, height: 600, xs1: 8, xs2: 4});
+      ? setState({
+          direction: "column",
+          alignContent: "end",
+          width: 1600,
+          height: 800,
+          xs1: 6,
+          xs2: 6,
+        })
+      : setState({
+          direction: "row",
+          alignContent: "start",
+          width: 1200,
+          height: 600,
+          xs1: 8,
+          xs2: 4,
+        });
   };
   const videos = data.map((e) => {
     return (
@@ -65,7 +81,12 @@ export default function VideoPlay({
         spacing={1}
       >
         <Grid item xs={state.xs1}>
-          <Grid container direction="column" justifyContent="end" alignContent="end">
+          <Grid
+            container
+            direction="column"
+            justifyContent="end"
+            alignContent="end"
+          >
             <iframe
               className="video-frame"
               src={`https://www.youtube.com/embed/${videoLink}`}
@@ -76,11 +97,16 @@ export default function VideoPlay({
               width={state.width}
               height={state.height}
             />
-              <Typography>{videoTitle}</Typography>
-              <Button onClick={handleClick}>full</Button>
-            {/* <Grid container direction="column" ml={9}>
-
-            </Grid> */}
+            <Typography>
+              {videoTitle}{" "}
+              <Button onClick={handleClick}>
+                {state.direction === "column" ? (
+                  <FullscreenIcon />
+                ) : (
+                  <FullscreenExitIcon />
+                )}
+              </Button>
+            </Typography>
           </Grid>
         </Grid>
         <Grid item xs={state.xs2}>

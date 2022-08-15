@@ -35,7 +35,7 @@ export default function HomePage({
   views,
 }) {
   // const [data, setData] = useState([]);
-  const key = "AIzaSyD83r2NzKFYX6ZrD229bH1bjCPiPBWlgds";
+  const key = "AIzaSyBmDrlGH8N20YohZjRsgKfBvChCn9OLIzo";
   const maxResults = 20;
   console.log("OPENNNNNNN: ", open);
   useEffect(() => {
