@@ -4,7 +4,7 @@ import MuiAppBar from "@mui/material/AppBar";
 import { AppBar } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import youtubeLogo from "./youtube-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import "./Navbar.scss";
 import { Fab } from "@mui/material";
@@ -13,6 +13,8 @@ export default function NavTest({ setSearch, open, setOpen }) {
   const [focused, setFocused] = useState(false);
   const onFocus = () => setFocused(true);
   const onBlur = () => setFocused(false);
+  const location = useLocation();
+console.log("location.pathname: ", location.pathname)
   return (
     <Grid>
       <AppBar style={{ height: "60px" }}>
@@ -64,7 +66,7 @@ export default function NavTest({ setSearch, open, setOpen }) {
           </Grid>
         </Grid>
       </AppBar>
-      {/* <Grid className="sidebar"></Grid> */}
+      {location.pathname === "/" && <Grid className="sidebar"></Grid>}
     </Grid>
   );
 }
