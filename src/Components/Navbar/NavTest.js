@@ -64,7 +64,7 @@ export default function NavTest({ setSearch, open, setOpen }) {
           </Grid>
         </Grid>
       </AppBar>
-      <Grid className="sidebar"></Grid>
+      {/* <Grid className="sidebar"></Grid> */}
     </Grid>
   );
 }

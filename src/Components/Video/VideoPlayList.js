@@ -47,7 +47,7 @@ export default function VideoPlayList({
   title = title.replace("&amp;", "&");
   title = title.replace("&#39;", "'");
   return (
-    <Box sx={{ width: "500px" }}>
+    <Box sx={{ maxWidth: "500px" }} mt={2}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6}>
           <Link

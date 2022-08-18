@@ -22,6 +22,7 @@ export default function VideoPlay({
   views,
   setViews,
 }) {
+  const [full, setFull] = useState(false);
   const [state, setState] = useState({
     direction: "row",
     alignContent: "start",
@@ -30,26 +31,10 @@ export default function VideoPlay({
     xs1: 8,
     xs2: 4,
   });
-  let w = window.innerWidth;
+  let w = window.innerWidth - 15;
   let h = window.innerHeight * 0.8;
   const handleClick = () => {
-    state.direction === "row"
-      ? setState({
-          direction: "column",
-          alignContent: "end",
-          width: w,
-          height: h,
-          xs1: 6,
-          xs2: 6,
-        })
-      : setState({
-          direction: "row",
-          alignContent: "start",
-          width: 1245,
-          height: 700,
-          xs1: 8.5,
-          xs2: 3.5,
-        });
+    full ? setFull(false) : setFull(true);
   };
   const videos = data.map((e) => {
     return (
@@ -75,37 +60,29 @@ export default function VideoPlay({
   });
 
   return (
-    <div>
+    <Grid>
       <Grid container>
         <NavTest setSearch={setSearch} open={false} setOpen={setOpen} />
       </Grid>
-      <Grid container justifyContent={"center"}>
 
-
-      <Grid containter>
-        <Box gridColumn="span 10" style={{maxWidth: "1920px"}} >
-        <Box
-              sx={{
-                display: "grid",
-                alignContent: "space",
-                gridTemplateColumns: "repeat(2, 1fr)",
-                gridAutoRows: "1fr",
-              }}
-            >
-              
-          <Grid item ml={10} mt={10}>
+      {full ? (
+        <>
+          <Grid container mt={7.5}>
             <iframe
               className="video-frame"
               src={`https://www.youtube.com/embed/${videoLink}`}
-              frameborder="0"
+              frameBorder="0"
               allow="autoplay; encrypted-media"
-              allowfullscreen
+              allowFullScreen
               title="video"
-              width={state.width}
-              height={state.height}
+              width={w}
+              height={h}
             />
+          </Grid>
+          <Grid container direction={"row"} justifyContent={"center"}>
+            <Box sx={{ width: "1920px" }}>
             <Typography>
-              {videoTitle}{" "}
+              {videoTitle}
               <Button onClick={handleClick}>
                 {state.direction === "column" ? (
                   <FullscreenIcon />
@@ -114,39 +91,24 @@ export default function VideoPlay({
                 )}
               </Button>
             </Typography>
-          </Grid>
-          <Grid item ml={3} mt={10}> {videos}</Grid>
+              <Grid container direction="column" alignContent="end" pr={10}>
+                {videos}
+              </Grid>
             </Box>
-            {/* <Box
-              sx={{
-                display: "grid",
-                alignContent: "space",
-                gridTemplateColumns: "repeat(1, 1fr)",
-                gridAutoRows: "1fr",
-              }}
-            >
-              
+          </Grid>
+        </>
+      ) : (<Grid container justifyContent="center">
 
-          <Grid container ml={3} mt={10} direction={"column"} alignContent={"end"}> {videos}</Grid>
-            </Box> */}
-        </Box>
-      </Grid>
-      </Grid>
-      {/* <Grid container justifyContent={"center"} mt={10}>
-        <Grid
-          container
-          direction={state.direction}
-          alignContent={"center"}
-          spacing={3}
-          style={{ maxWidth: "1920px" }}
-        >
-          <Grid item xs={state.xs1}>
-            <Grid
-              container
-              direction="column"
-              justifyContent="end"
-              alignContent="end"
-            >
+        <Box gridColumn="span 10" style={{ width: "1920px" }}>
+          <Box
+            sx={{
+              display: "grid",
+              alignContent: "space",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gridAutoRows: "1fr",
+            }}
+          >
+            <Grid item ml={10} mt={10}>
               <iframe
                 className="video-frame"
                 src={`https://www.youtube.com/embed/${videoLink}`}
@@ -154,32 +116,25 @@ export default function VideoPlay({
                 allow="autoplay; encrypted-media"
                 allowfullscreen
                 title="video"
-                width={state.width}
-                height={state.height}
+                width={1245}
+                height={700}
               />
               <Typography>
                 {videoTitle}{" "}
                 <Button onClick={handleClick}>
-                  {state.direction === "column" ? (
-                    <FullscreenIcon />
-                  ) : (
-                    <FullscreenExitIcon />
-                  )}
+                  {full ? <FullscreenExitIcon /> : <FullscreenIcon />}
                 </Button>
               </Typography>
             </Grid>
-          </Grid>
-          <Grid item xs={state.xs2}>
-            <Grid
-              container
-              direction={"column"}
-              alignContent={state.alignContent}
-            >
+            <Grid item ml={3} mt={10}>
               {videos}
             </Grid>
-          </Grid>
-        </Grid>
-      </Grid> */}
-    </div>
+          </Box>
+        </Box>
+      </Grid>
+      )}
+
+      {/*  */}
+    </Grid>
   );
 }
