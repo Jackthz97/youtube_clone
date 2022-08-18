@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { Grid, Typography } from "@mui/material";
 import axios from "axios";
 import ReactTimeAgo from "react-time-ago";
@@ -19,15 +19,11 @@ export default function VideoList({
   setVideoLink,
   videoLink,
   setVideoTitle,
-  videoTitle,
-  // setChannel,
-  // channel,
-  setViews,
-  views,
+  videoTitle
 }) {
   const [channel, setChannel] = useState([]);
-  // const [views, setViews] = useState([]);
-  const APIkey = "AIzaSyAfr7q4wiIO2VeC-KG7MseQ9D-DZwtSz3U";
+  const [views, setViews] = useState([]);
+  const APIkey = process.env.REACT_APP_VIDEO_KEY;
   useMemo(() => {
     axios
       .get(
@@ -65,6 +61,7 @@ export default function VideoList({
   views.map((e) => {
     view = Number(e.statistics.viewCount);
     duration = e.contentDetails.duration;
+    return (view, duration);
   });
 
   title = title.replace("&amp;", "&");

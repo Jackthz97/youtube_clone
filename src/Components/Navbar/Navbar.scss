@@ -1,14 +1,6 @@
 .input-bar {
-  background-color: black;
-  height: 40px;
-  width: 500px;
-  color: white;
-  font-size: large;
-  border: none;
-}
-.input-bar-open {
   position: relative;
-  left: -50px;
+  top: 5px;
   background-color: black;
   height: 40px;
   width: 500px;
@@ -18,24 +10,42 @@
 }
 
 .search-button {
-  background-color: rgb(85, 85, 85);
-  color: white;
-  border: none;
-  width: 60px;
-}
-.search-button-open {
   position: relative;
-  left: -50px;
+  top: 10px;
   background-color: rgb(85, 85, 85);
   color: white;
   border: none;
+  height: 40px;
   width: 60px;
 }
 
+
 .youtube-logo {
-  width: 150px;
+  width: 120px;
+  position: relative;
+  top: -10px;
+  left: 60px;
 }
 
 .appbar {
   height: 65px;
 }
+
+
+
+.sidebar {
+  position: fixed;
+  width: 55px;
+  height: 100%;
+  background-color: rgb(41, 41, 41);
+}
+
+.MenuIcon{
+  // position: relative;
+  // top: -45px;
+  // left: 10px
+}
+
+.MuiButton-root {
+  border-radius: 8px;
+} 

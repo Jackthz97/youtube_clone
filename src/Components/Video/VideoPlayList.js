@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useMemo, useState} from "react";
+import axios from "axios";
 import { Grid, Typography, Box } from "@mui/material";
 import ReactTimeAgo from "react-time-ago";
 import Num2Views from "../../Hooks/Num2Views";
@@ -19,11 +20,18 @@ export default function VideoPlayList({
   setVideoLink,
   videoLink,
   setVideoTitle,
-  videoTitle,
-  views,
-  setViews
-}) {
 
+}) {
+  const [views, setViews] = useState([]);
+  const APIkey = process.env.REACT_APP_VIDEO_KEY;
+  useMemo(() => {
+    axios
+      .get(
+        `https://youtube.googleapis.com/youtube/v3/videos?part=contentDetails%2Cstatistics&id=${videoId}&key=${APIkey}`
+      )
+      .then((res) => setViews(res.data.items))
+      .catch((err) => console.log("Error: ", err));
+  }, [channelId, videoId]);
   const handleClick = () => {
     setVideoLink(videoId);
     setVideoTitle(title);

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Grid, Box } from "@mui/material";
 import VideoList from "../Video/VideoList";
 import TimeAgo from "javascript-time-ago";
-
+import NavTest from "../Navbar/NavTest";
 import Navbar from "../Navbar/Navbar";
 import "./HomePage.scss";
 
@@ -35,7 +35,7 @@ export default function HomePage({
   views,
 }) {
   // const [data, setData] = useState([]);
-  const key = "AIzaSyBmDrlGH8N20YohZjRsgKfBvChCn9OLIzo";
+  const key = process.env.REACT_APP_SEARCH_KEY;
   const maxResults = 20;
   console.log("OPENNNNNNN: ", open);
   useEffect(() => {
@@ -85,32 +85,34 @@ export default function HomePage({
   });
   return (
     <Grid>
-      <div className="top-nav"></div>
-      <Navbar setSearch={setSearch} open={open} setOpen={setOpen} />
+      {/* <div className="top-nav"></div> */}
+      <NavTest setSearch={setSearch} open={open} setOpen={setOpen} />
       <Grid container direction={"row"} justifyContent={"center"} mt={3}>
         {/* <Grid container direction={"row"} justifyContent={"center"}>
           <SearchBar search={search} setSearch={setSearch} />
         </Grid> */}
         <Grid
-          className={open ? "video-box-open" : "video-box"}
+          className="video-box"
           container
           display={"flex"}
           direction={"row"}
-          justifyContent={open ? "center" : "start"}
+          justifyContent="start"
         >
           {/* {width >= 1790 && width < ulrtaWide && ( */}
-          <Box gridColumn="span 10">
-            <Box
-              sx={{
-                display: "grid",
-                alignContent: "space",
-                gridTemplateColumns: open ? "repeat(4, 1fr)" : "repeat(5, 1fr)",
-                gridAutoRows: "1fr",
-              }}
-            >
-              {videos}
+          <Grid container direction={"row"} justifyContent={"center"}>
+            <Box gridColumn="span 10" style={{ maxWidth: "1920px" }} mt={8}>
+              <Box
+                sx={{
+                  display: "grid",
+                  alignContent: "space",
+                  gridTemplateColumns: "repeat(5, 1fr)",
+                  gridAutoRows: "1fr",
+                }}
+              >
+                {videos}
+              </Box>
             </Box>
-          </Box>
+          </Grid>
           {/* )} */}
           {/* {width < 1790 &&   (
             <Box gridColumn="span 10">
