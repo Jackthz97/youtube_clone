@@ -1,13 +1,12 @@
 import React, { useState, useMemo } from "react";
 import axios from "axios";
-import Navbar from "../Navbar/Navbar";
 import { Grid, Box } from "@mui/material";
 import { Typography } from "@mui/material";
 import VideoPlayList from "./VideoPlayList";
 import { Button } from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
-import NavTest from "../Navbar/NavTest";
+import Navbar from "../Navbar/Navbar";
 
 export default function VideoPlay({
   open,
@@ -62,7 +61,7 @@ export default function VideoPlay({
   return (
     <Grid>
       <Grid container>
-        <NavTest setSearch={setSearch} open={false} setOpen={setOpen} />
+        <Navbar setSearch={setSearch} open={false} setOpen={setOpen} />
       </Grid>
 
       {full ? (

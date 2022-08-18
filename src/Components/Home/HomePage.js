@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import axios from "axios";
 import { Grid, Box } from "@mui/material";
 import VideoList from "../Video/VideoList";
 import TimeAgo from "javascript-time-ago";
-import NavTest from "../Navbar/NavTest";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "../Navbar/Navbar"
 import "./HomePage.scss";
 
 import en from "javascript-time-ago/locale/en.json";
@@ -34,19 +33,18 @@ export default function HomePage({
   channel,
   views,
 }) {
-  // const [data, setData] = useState([]);
   const key = process.env.REACT_APP_SEARCH_KEY;
   const maxResults = 20;
-  console.log("OPENNNNNNN: ", open);
-  useEffect(() => {
-    /* Inside of a "useEffect" hook add an event listener that updates
-       the "width" state variable when the window size changes */
-    window.addEventListener("resize", () => setWidth(window.innerWidth));
 
-    /* passing an empty array as the dependencies of the effect will cause this
-       effect to only run when the component mounts, and not each time it updates.
-       We only want the listener to be added once */
-  }, []);
+  // useEffect(() => {
+  //   /* Inside of a "useEffect" hook add an event listener that updates
+  //      the "width" state variable when the window size changes */
+  //   window.addEventListener("resize", () => setWidth(window.innerWidth));
+
+  //   /* passing an empty array as the dependencies of the effect will cause this
+  //      effect to only run when the component mounts, and not each time it updates.
+  //      We only want the listener to be added once */
+  // }, []);
   useMemo(() => {
     axios
       .get(
@@ -85,12 +83,8 @@ export default function HomePage({
   });
   return (
     <Grid>
-      {/* <div className="top-nav"></div> */}
-      <NavTest setSearch={setSearch} open={open} setOpen={setOpen} />
+      <Navbar setSearch={setSearch} open={open} setOpen={setOpen} />
       <Grid container direction={"row"} justifyContent={"center"} mt={3}>
-        {/* <Grid container direction={"row"} justifyContent={"center"}>
-          <SearchBar search={search} setSearch={setSearch} />
-        </Grid> */}
         <Grid
           className="video-box"
           container
@@ -98,7 +92,6 @@ export default function HomePage({
           direction={"row"}
           justifyContent="start"
         >
-          {/* {width >= 1790 && width < ulrtaWide && ( */}
           <Grid container direction={"row"} justifyContent={"center"}>
             <Box gridColumn="span 10" style={{ maxWidth: "1920px" }} mt={8}>
               <Box
@@ -113,23 +106,6 @@ export default function HomePage({
               </Box>
             </Box>
           </Grid>
-          {/* )} */}
-          {/* {width < 1790 &&   (
-            <Box gridColumn="span 10">
-              <Box
-                sx={{
-                  display: "grid",
-                  alignContent: "space",
-                  gridTemplateColumns: open
-                    ? "repeat(3, 1fr)"
-                    : "repeat(4, 1fr)",
-                  gridAutoRows: "1fr",
-                }}
-              >
-                {videos}
-              </Box>
-            </Box>
-          )} */}
         </Grid>
       </Grid>
     </Grid>
