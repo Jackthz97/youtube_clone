@@ -35,7 +35,9 @@ export default function VideoPlayList({
   const handleClick = () => {
     setVideoLink(videoId);
     setVideoTitle(title);
-    console.log(`videoId: ${videoId}, VideoLink: ${videoLink} `);
+    localStorage.clear();
+    localStorage.setItem("channeImgs", JSON.stringify(channelId));
+    localStorage.setItem("views", view);
   };
   let view = 0;
   let duration = "PT0H0M0S";

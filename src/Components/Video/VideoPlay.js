@@ -7,6 +7,7 @@ import { Button } from "@mui/material";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import Navbar from "../Navbar/Navbar";
+import Num2Views from "../../Hooks/Num2Views";
 
 export default function VideoPlay({
   open,
@@ -22,19 +23,20 @@ export default function VideoPlay({
   setViews,
 }) {
   const [full, setFull] = useState(false);
-  const [state, setState] = useState({
-    direction: "row",
-    alignContent: "start",
-    width: 1245,
-    height: 700,
-    xs1: 8,
-    xs2: 4,
-  });
+  const [channel, setChannel] = useState([]);
+
+  const APIkey = process.env.REACT_APP_VIDEO_KEY;
+
+  const channelId = JSON.parse(localStorage.getItem("channeImgs"));
+  const viewCount = JSON.parse(localStorage.getItem("views"));
+  console.log("channelId", channelId);
   let w = window.innerWidth - 15;
-  let h = window.innerHeight * 0.8;
+  let h = window.innerHeight * 0.82;
+
   const handleClick = () => {
     full ? setFull(false) : setFull(true);
   };
+
   const videos = data.map((e) => {
     return (
       <React.Fragment key={e.id.videoId}>
@@ -53,6 +55,31 @@ export default function VideoPlay({
           setVideoTitle={setVideoTitle}
           views={views}
           setViews={setViews}
+        />
+      </React.Fragment>
+    );
+  });
+
+  useMemo(() => {
+    axios
+      .get(
+        `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&key=${APIkey}`
+      )
+      .then((res) => {
+        setChannel(res.data.items);
+      })
+      .catch((err) => console.log("Error: ", err));
+  }, [channelId]);
+
+  const channleImg = channel.map((e) => {
+    return (
+      <React.Fragment key={channelId}>
+        <img
+          className="channel-img"
+          src={e.snippet.thumbnails.default.url}
+          alt={e.snippet.thumbnails.default.url}
+          width={20}
+          border-radius={"50%"}
         />
       </React.Fragment>
     );
@@ -78,59 +105,67 @@ export default function VideoPlay({
               height={h}
             />
           </Grid>
-          <Grid container direction={"row"} justifyContent={"center"}>
+          <Grid container direction={"row"} justifyContent={"center"} mt={2}>
             <Box sx={{ width: "1920px" }}>
-            <Typography>
-              {videoTitle}
-              <Button onClick={handleClick}>
-                {state.direction === "column" ? (
-                  <FullscreenIcon />
-                ) : (
-                  <FullscreenExitIcon />
-                )}
-              </Button>
-            </Typography>
+              <Grid container direction="column" pl={10}>
+                <Typography style={{ fontWeight: "bold" }}>
+                  {videoTitle}
+                  <Button onClick={handleClick}>
+                    {full ? <FullscreenExitIcon /> : <FullscreenIcon />}
+                  </Button>
+                </Typography>
+                <Typography fontSize={"15px"} fontWeight={"bold"}>
+                  {`${viewCount} views`}
+                </Typography>
+                <Grid mt={1}>{channleImg}</Grid>
+              </Grid>
               <Grid container direction="column" alignContent="end" pr={10}>
                 {videos}
               </Grid>
             </Box>
           </Grid>
         </>
-      ) : (<Grid container justifyContent="center">
-
-        <Box gridColumn="span 10" style={{ width: "1920px" }}>
-          <Box
-            sx={{
-              display: "grid",
-              alignContent: "space",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gridAutoRows: "1fr",
-            }}
-          >
-            <Grid item ml={10} mt={10}>
-              <iframe
-                className="video-frame"
-                src={`https://www.youtube.com/embed/${videoLink}`}
-                frameborder="0"
-                allow="autoplay; encrypted-media"
-                allowfullscreen
-                title="video"
-                width={1245}
-                height={700}
-              />
-              <Typography>
-                {videoTitle}{" "}
-                <Button onClick={handleClick}>
-                  {full ? <FullscreenExitIcon /> : <FullscreenIcon />}
-                </Button>
-              </Typography>
-            </Grid>
-            <Grid item ml={3} mt={10}>
-              {videos}
-            </Grid>
+      ) : (
+        <Grid container justifyContent="center">
+          <Box gridColumn="span 10" style={{ width: "1920px" }}>
+            <Box
+              sx={{
+                display: "grid",
+                alignContent: "space",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gridAutoRows: "1fr",
+              }}
+            >
+              <Grid item ml={10} mt={10}>
+                <iframe
+                  className="video-frame"
+                  src={`https://www.youtube.com/embed/${videoLink}`}
+                  frameBorder="0"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  title="video"
+                  width={1245}
+                  height={700}
+                />
+                <Grid container direction="column">
+                  <Typography style={{ fontWeight: "bold" }}>
+                    {videoTitle}
+                    <Button onClick={handleClick}>
+                      {full ? <FullscreenExitIcon /> : <FullscreenIcon />}
+                    </Button>
+                  </Typography>
+                  <Typography fontSize={"15px"} fontWeight={"bold"}>
+                    {`${viewCount} views`}
+                  </Typography>
+                  <Grid mt={1}>{channleImg}</Grid>
+                </Grid>
+              </Grid>
+              <Grid item ml={3} mt={10}>
+                {videos}
+              </Grid>
+            </Box>
           </Box>
-        </Box>
-      </Grid>
+        </Grid>
       )}
 
       {/*  */}

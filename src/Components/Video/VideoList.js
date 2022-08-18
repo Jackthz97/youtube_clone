@@ -19,7 +19,7 @@ export default function VideoList({
   setVideoLink,
   videoLink,
   setVideoTitle,
-  videoTitle
+  videoTitle,
 }) {
   const [channel, setChannel] = useState([]);
   const [views, setViews] = useState([]);
@@ -29,7 +29,9 @@ export default function VideoList({
       .get(
         `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${channelId}&key=${APIkey}`
       )
-      .then((res) => setChannel(res.data.items))
+      .then((res) => {
+        setChannel(res.data.items);
+      })
       .catch((err) => console.log("Error: ", err));
     axios
       .get(
@@ -38,11 +40,16 @@ export default function VideoList({
       .then((res) => setViews(res.data.items))
       .catch((err) => console.log("Error: ", err));
   }, [channelId, videoId]);
-  const handleClick = () => {
+
+  const handleClick = (channelId) => {
     setVideoLink(videoId);
     setVideoTitle(title);
-    console.log(`videoId: ${videoId}, VideoLink: ${videoLink} `)
+    localStorage.clear();
+    localStorage.setItem("channeImgs", JSON.stringify(channelId));
+    localStorage.setItem("views", view);
+    // console.log(`videoId: ${videoId}, VideoLink: ${videoLink} `);
   };
+
   const channleImg = channel.map((e) => {
     return (
       <React.Fragment key={videoId}>
@@ -56,16 +63,19 @@ export default function VideoList({
       </React.Fragment>
     );
   });
+
   let view = 0;
   let duration = "PT0H0M0S";
+
   views.map((e) => {
     view = Number(e.statistics.viewCount);
     duration = e.contentDetails.duration;
-    return (view, duration);
+    return view, duration;
   });
 
   title = title.replace("&amp;", "&");
   title = title.replace("&#39;", "'");
+
   return (
     <Grid mr={2}>
       <Link
@@ -73,7 +83,7 @@ export default function VideoList({
         style={{
           textDecoration: "none",
         }}
-        onClick={handleClick}
+        onClick={() => handleClick(channelId)}
       >
         <img src={thumbnail} alt={title} width={"100%"} />
       </Link>
@@ -91,7 +101,10 @@ export default function VideoList({
             </Typography>
             <p className="channel-title">{channelTitle}</p>
             <p className="channel-time">
-              {`${Num2Views(view)} views`}{" "}
+              {`${Num2Views(view)} views`}
+              &nbsp;
+              ● 
+              &nbsp;
               <ReactTimeAgo date={uploadTime} locale="en-US" />
             </p>
           </Grid>
