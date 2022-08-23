@@ -19,7 +19,6 @@
   width: 60px;
 }
 
-
 .youtube-logo {
   width: 120px;
   position: relative;
@@ -31,8 +30,6 @@
   height: 65px;
 }
 
-
-
 .sidebar {
   position: fixed;
   width: 55px;
@@ -40,12 +37,37 @@
   background-color: rgb(41, 41, 41);
 }
 
-.MenuIcon{
-  // position: relative;
-  // top: -45px;
-  // left: 10px
+.tags {
+  // border-radius: 25%;
+  background-color: rgb(75, 75, 75);
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  border-top-right-radius: 2rem;
+  border-top-left-radius: 2rem;
+padding-left: 10px;
+padding-right: 10px;
+padding-top: 5px;
+padding-bottom: 5px;
+
+
 }
 
 .MuiButton-root {
   border-radius: 8px;
-} 
+}
+
+.tag-style {
+  // border: 1px solid red;
+  max-width: 95%;
+  float: left;
+  position:relative;
+  overflow: hidden;
+}
+.tabs {
+  display: flex;
+  direction: "column";
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid white;
+}

@@ -72,7 +72,7 @@ export default function VideoPlayList({
             </Typography>
             <p className="channel-title">{channelTitle}</p>
             <p className="channel-time">
-              {`${Num2Views(view)} views`}{" "}
+              {`${Num2Views(view, true)} views`}{" "}
               <ReactTimeAgo date={uploadTime} locale="en-US" />
             </p>
           </Grid>

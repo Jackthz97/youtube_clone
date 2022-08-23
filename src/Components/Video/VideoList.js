@@ -6,6 +6,9 @@ import Num2Views from "../../Hooks/Num2Views";
 import DurationConvert from "../../Hooks/DurationConvert";
 import { Link } from "react-router-dom";
 import "./Video.scss";
+import Stack from "@mui/material/Stack";
+import Skeleton from "@mui/material/Skeleton";
+import deafultImg from './colorimage.png'
 
 export default function VideoList({
   videoId,
@@ -20,6 +23,7 @@ export default function VideoList({
   videoLink,
   setVideoTitle,
   videoTitle,
+  loading,
 }) {
   const [channel, setChannel] = useState([]);
   const [views, setViews] = useState([]);
@@ -40,6 +44,7 @@ export default function VideoList({
       .then((res) => setViews(res.data.items))
       .catch((err) => console.log("Error: ", err));
   }, [channelId, videoId]);
+  
 
   const handleClick = (channelId) => {
     setVideoLink(videoId);
@@ -47,7 +52,9 @@ export default function VideoList({
     localStorage.clear();
     localStorage.setItem("channeImgs", JSON.stringify(channelId));
     localStorage.setItem("views", view);
-    // console.log(`videoId: ${videoId}, VideoLink: ${videoLink} `);
+  };
+  const handleImgError = (e) => {
+    e.target.src = deafultImg;
   };
 
   const channleImg = channel.map((e) => {
@@ -59,6 +66,7 @@ export default function VideoList({
           alt={e.snippet.thumbnails.default.url}
           width={20}
           border-radius={"50%"}
+          onError={handleImgError}
         />
       </React.Fragment>
     );
@@ -77,7 +85,7 @@ export default function VideoList({
   title = title.replace("&#39;", "'");
 
   return (
-    <Grid mr={2}>
+  <Grid mr={2}>
       <Link
         to={`/watch/${videoId}`}
         style={{
@@ -101,10 +109,8 @@ export default function VideoList({
             </Typography>
             <p className="channel-title">{channelTitle}</p>
             <p className="channel-time">
-              {`${Num2Views(view)} views`}
-              &nbsp;
-              ● 
-              &nbsp;
+              {`${Num2Views(view, true)} views`}
+              &nbsp; ● &nbsp;
               <ReactTimeAgo date={uploadTime} locale="en-US" />
             </p>
           </Grid>
@@ -113,3 +119,4 @@ export default function VideoList({
     </Grid>
   );
 }
+

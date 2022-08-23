@@ -1,40 +1,18 @@
 import React from "react";
 
-export default function DurationConvert(string) {
-  if (string.includes("H") && string.includes("M") && string.includes("S")) {
-    const [te, t1] = string.split("PT");
-    let [hour, rest] = t1.split("H");
-    if (Number(hour) < 10) {
-      hour = `0${hour}`;
+export default function DurationConvert(duration) {
+  const time_extractor = /^P([0-9]*D)?T([0-9]*H)?([0-9]*M)?([0-9]*S)?$/i;
+    const extracted = time_extractor.exec(duration);
+    if (extracted) {
+        let days = `${parseInt(extracted[1], 10)}:` || "";
+        let hours = `${parseInt(extracted[2], 10)}:` || "";
+        let minutes = `${parseInt(extracted[3], 10)}` || "";
+        let seconds = parseInt(extracted[4], 10) || "";
+        if (days < 10 && days !== 0) {
+          
+        }
+
+        return `${days}${hours}${minutes}${seconds}`;
     }
-    let [minute, re] = rest.split("M");
-    if (Number(minute) < 10) {
-      minute = `0${minute}`;
-    }
-    let [second, ts] = re.split("S");
-    if (Number(second) < 10) {
-      second = `0${second}`;
-    }
-    return `${hour}:${minute}:${second}`;
-  }
-  if (string.includes("M") && string.includes("S") && !string.includes("H")) {
-    const [te, t1] = string.split("PT");
-    let [min, rest] = t1.split("M");
-    if (Number(min) < 10) {
-      min = `0${min}`;
-    }
-    let [sec, re] = rest.split("S");
-    if (Number(sec) < 10) {
-      sec = `0${sec}`;
-    }
-    return `${min}:${sec}`;
-  }
-  if (!string.includes("H") && !string.includes("M") && string.includes("S")) {
-    const [te, t1] = string.split("PT");
-    let [sec, rest] = t1.split("S");
-    if (Number(sec) < 10) {
-      sec = `0${sec}`;
-    }
-    return `0:${sec}`;
-  }
+    return 0;
 }

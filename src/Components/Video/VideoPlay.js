@@ -29,7 +29,7 @@ export default function VideoPlay({
 
   const channelId = JSON.parse(localStorage.getItem("channeImgs"));
   const viewCount = JSON.parse(localStorage.getItem("views"));
-  console.log("channelId", channelId);
+
   let w = window.innerWidth - 15;
   let h = window.innerHeight * 0.82;
 
@@ -88,7 +88,7 @@ export default function VideoPlay({
   return (
     <Grid>
       <Grid container>
-        <Navbar setSearch={setSearch} open={false} setOpen={setOpen} />
+        <Navbar setSearch={setSearch} search={search} open={false} setOpen={setOpen} />
       </Grid>
 
       {full ? (
@@ -115,7 +115,7 @@ export default function VideoPlay({
                   </Button>
                 </Typography>
                 <Typography fontSize={"15px"} fontWeight={"bold"}>
-                  {`${viewCount} views`}
+                  {`${Num2Views(viewCount, false)} views`}
                 </Typography>
                 <Grid mt={1}>{channleImg}</Grid>
               </Grid>
@@ -155,7 +155,7 @@ export default function VideoPlay({
                     </Button>
                   </Typography>
                   <Typography fontSize={"15px"} fontWeight={"bold"}>
-                    {`${viewCount} views`}
+                    {`${Num2Views(viewCount, false)} views`}
                   </Typography>
                   <Grid mt={1}>{channleImg}</Grid>
                 </Grid>

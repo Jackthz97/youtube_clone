@@ -11,7 +11,6 @@ function App() {
   const [videoLink, setVideoLink] = useState("");
   const [videoTitle, setVideoTitle] = useState("");
   const [data, setData] = useState([]);
-  // const [channel, setChannel] = useState([]);
   const [views, setViews] = useState([]);
   const darkTheme = createTheme({
     palette: {
@@ -21,20 +20,11 @@ function App() {
   const [width, setWidth] = useState(window.innerWidth);
   const [search, setSearch] = useState("trending");
   const [open, setOpen] = useState(true);
-  console.log("WIDTH: ", width);
   const ulrtaWide = 3440;
   const moniterBreakpoint = 1920;
   const notePadBreakpoint = 1320;
   const mobileBreakpoint = 360;
-  // useEffect(() => {
-  //   /* Inside of a "useEffect" hook add an event listener that updates
-  //      the "width" state variable when the window size changes */
-  //   window.addEventListener("resize", () => setWidth(window.innerWidth));
 
-  //   /* passing an empty array as the dependencies of the effect will cause this
-  //      effect to only run when the component mounts, and not each time it updates.
-  //      We only want the listener to be added once */
-  // }, []);
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
@@ -58,8 +48,6 @@ function App() {
               setVideoTitle={setVideoTitle}
               data={data}
               setData={setData}
-              // setChannel={setChannel}
-              // channel={channel}
               setViews={setViews}
               views={views}
             />
